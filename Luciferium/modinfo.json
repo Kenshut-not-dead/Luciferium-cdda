@@ -1,0 +1,11 @@
+[
+  {
+    "type": "MOD_INFO",
+    "id": "KS_Luciferium",
+    "name": "Luciferium",
+    "authors": [ "Kenshut" ],
+    "description": "Add  Luciferium from rimworld",
+    "category": "content",
+    "dependencies": [ "dda" ]
+  }
+]

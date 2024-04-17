@@ -1,0 +1,369 @@
+[
+  {
+    "id": "Luciferium_light",
+    "type": "COMESTIBLE",
+    "comestible_type": "MED",
+    "consumption_effect_on_conditions": [ "EOC_Luciferium_light" ],
+    "name": { "str": "Luciferium light pill" },
+    "description": "A concoction of mechanites that dramatically improve the body's functioning in all respects. call Luciferium the 'Devil's Bargain'. Many have been forced to kill friends when no more of the seductive red pills could be found.\nthis dose is enough for 2 days",
+    "weight": "15 g",
+    "volume": "5 ml",
+    "looks_like": "panacea",
+    "material": [ "plastic" ],
+    "symbol": "!",
+    "flags": [ "TRADER_AVOID", "UNBREAKABLE" ],
+    "freezing_point": -1000,
+    "color": "red"
+  },
+  {
+    "id": "Luciferium",
+    "type": "COMESTIBLE",
+    "comestible_type": "MED",
+    "consumption_effect_on_conditions": [ "EOC_Luciferium" ],
+    "name": { "str": "Luciferium pill" },
+    "description": "A concoction of mechanites that dramatically improve the body's functioning in all respects. call Luciferium the 'Devil's Bargain'. Many have been forced to kill friends when no more of the seductive red pills could be found.\nthis dose is enough for 7 days",
+    "weight": "20 g",
+    "volume": "6 ml",
+    "looks_like": "panacea",
+    "material": [ "plastic" ],
+    "symbol": "!",
+    "flags": [ "TRADER_AVOID", "UNBREAKABLE" ],
+    "freezing_point": -1000,
+    "color": "red"
+  },
+  {
+    "id": "Luciferium_hight",
+    "type": "COMESTIBLE",
+    "comestible_type": "MED",
+    "consumption_effect_on_conditions": [ "EOC_Luciferium_hight" ],
+    "name": { "str": "Luciferium big pill" },
+    "description": "A concoction of mechanites that dramatically improve the body's functioning in all respects. call Luciferium the 'Devil's Bargain'. Many have been forced to kill friends when no more of the seductive red pills could be found.\nthis dose is enough for 10 days",
+    "weight": "25 g",
+    "volume": "7 ml",
+    "looks_like": "panacea",
+    "material": [ "plastic" ],
+    "symbol": "!",
+    "flags": [ "TRADER_AVOID", "UNBREAKABLE" ],
+    "freezing_point": -1000,
+    "color": "red"
+  },
+  {
+    "type": "effect_type",
+    "id": "Luciferium_dead",
+    "name": [ "Death from lack of Luciferium", "Decomposition from lack of Luciferium", "The urgent need for Luciferium", "the disadvantage of Luciferium", "the light disadvantage of Luciferium", "the need for Luciferium" ],
+    "desc": [
+      "You're going to die.  And If you do not take Luciferium urgently, you will die.",
+      "Your body is rapidly deteriorating!  And If you do not take Luciferium urgently, you will die.",
+      "You feel very weak. It is better to take Luciferium.",
+      "You feel weak. It is better to take Luciferium.",
+      "It is advisable to take Luciferium in the coming hours.",
+      "You feel slightly unwell. It is advisable to take Luciferium."
+    ],
+    
+    "rating": "bad",
+    "max_intensity": 6,
+    "base_mods": { 
+      "str_mod": [ -12 ], 
+      "dex_mod": [ -12 ], 
+      "per_mod": [ -12 ], 
+      "int_mod": [ -12 ],
+      "pain_amount": [ 12 ],
+      "pain_min": [ 12 ],
+      "pain_chance": [ 24 ],
+      "pain_max_val": [ 100 ],
+      "hurt_min": [ 20 ],
+      "hurt_max": [ 40 ],
+      "hurt_chance": [ 1 ],
+      "hurt_tick": [ 2 ]
+      },
+    "scaling_mods": { "str_mod": [ 2 ], 
+      "dex_mod": [ 2 ], 
+      "per_mod": [ 2 ], 
+      "int_mod": [ 2 ],
+      "pain_amount": [ -1 ],
+      "pain_min": [ -1 ],
+      "pain_chance": [ -3 ],
+      "pain_max_val": [ -12 ]
+      }
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "Обновление_переменной_Luciferium",
+    "eoc_type": "RECURRING",
+    "condition": {"math": [ "Testing_mode", "==", "1"]},
+    "recurrence": "1 day",
+    "effect": [
+    	{ "math": [ "timez", "+=", "-1"]},
+        {"u_message":  "Произошла проверка люциферия"},
+        {"u_message":  "Времени: <global_val:timez>\nОтказ: <global_val:timezN>"}
+	],
+	"false_effect":[
+    	{ "math": [ "timez", "+=", "-1"]}
+	]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "Обновление_переменной_Luciferium1",
+    "eoc_type": "RECURRING",
+    "condition": {"math": [ "Testing_mode", "==", "1"]},
+    "recurrence": "1 hours",
+    "effect": [
+        {"u_message":  "Времени: <global_val:timez>\nОтказ: <global_val:timezN>"}
+	]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "проверка_ссмерти",
+    "eoc_type": "RECURRING",
+    "recurrence": "2 hours",
+    "condition": {"and":[{ "u_has_trait": "Luciferium" }, { "math": [ "timez", "<=", "0"]}]},
+    "effect": [
+         { "math": [ "timezN", "+=", "1"]},
+         {"u_message":  "lol"},
+         { "run_eocs": "EOC_Luciferium_dead" }
+	]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "Cancleeees",
+    "eoc_type": "RECURRING",
+    "recurrence": "1 second",
+    "condition": {"and":[{ "math": [ "timezN", "==", "0" ]}, { "u_has_effect": "Luciferium_dead" } ]},
+    "effect": [
+      { "u_lose_effect": "Luciferium_dead" },
+      { 
+        "u_message": "Did you feel relieved"
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "DEEEEED",
+    "eoc_type": "RECURRING",
+    "recurrence": "2 second",
+    "condition": { "u_has_effect": "Luciferium_dead", "intensity": 1 },
+    "effect": [
+      { "math": [ "u_hp('torso')", "-=", "10" ] }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_Luciferium_dead",
+    "condition": { "math": [ "timezN", "<=", "2" ] },
+    "effect": [
+      { "u_add_effect": "Luciferium_dead", "intensity": 6, "duration": "PERMANENT" },
+      { 
+        "u_message": "Your body feels different."
+      }
+    ],
+    "false_effect": [ { "run_eocs": [ "EOC_Luciferium_dead1" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_Luciferium_dead1",
+    "condition": { "math": [ "timezN", "<=", "4" ] },
+    "effect": [
+      { "u_add_effect": "Luciferium_dead", "intensity": 6, "duration": "PERMANENT" },
+      {
+        "u_message": "Your body feels a slight need for Luciferium.",
+        "popup": true
+      }
+    ],
+    "false_effect": [ { "run_eocs": [ "EOC_Luciferium_dead2" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_Luciferium_dead2",
+    "condition": { "math": [ "timezN", "<=", "6" ] },
+    "effect": [
+      { "u_add_effect": "Luciferium_dead", "intensity": 5, "duration": "PERMANENT" },
+      {
+        "u_message": "Your body feels a need for Luciferium.",
+        "popup": true,
+        "type": "bad"
+      }
+    ],
+    "false_effect": [ { "run_eocs": [ "EOC_Luciferium_dead3" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_Luciferium_dead3",
+    "condition": { "math": [ "timezN", "<=", "8" ] },
+    "effect": [
+      { "u_add_effect": "Luciferium_dead", "intensity": 4, "duration": "PERMANENT" },
+      {
+        "u_message": "Your body feels a strong need for Luciferium.",
+        "popup": true,
+        "type": "bad"
+      }
+    ],
+    "false_effect": [ { "run_eocs": [ "EOC_Luciferium_dead4" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_Luciferium_dead4",
+    "condition": { "math": [ "timezN", "<=", "9" ] },
+    "effect": [
+      { "u_add_effect": "Luciferium_dead", "intensity": 3, "duration": "PERMANENT" },
+      {
+        "u_message": "Your body is in extreme need of Luciferium",
+        "popup": true,
+        "type": "mixed"
+      }
+    ],
+    "false_effect": [ { "run_eocs": [ "EOC_Luciferium_dead5" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_Luciferium_dead5",
+    "condition": { "math": [ "timezN", "<=", "10" ] },
+    "effect": [
+      { "u_add_effect": "Luciferium_dead", "intensity": 2, "duration": "PERMANENT" },
+      {
+        "u_message": "Your body begins to decompose",
+        "popup": true,
+        "type": "mixed"
+      }
+    ],
+    "false_effect": [ { "run_eocs": [ "EOC_Luciferium_dead6" ] } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_Luciferium_dead6",
+    "effect": [
+      { "u_add_effect": "Luciferium_dead", "intensity": 1, "duration": "PERMANENT" },
+      {
+        "u_message": "You're dying",
+        "popup": true,
+        "type": "mixed"
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_Luciferium_light",
+    "eoc_type": "ACTIVATION",
+    "condition": { "not":{ "u_has_trait": "Luciferium" }},
+    "effect": [
+         { "u_add_trait": "Luciferium" },
+         { "math": [ "timezN", "=", "0"]},
+         {"math":["timez", "=", "2"]}
+	],
+	"false_effect":[
+	{ "run_eocs": "requesti_light" }
+	]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "requesti_light",
+    "eoc_type": "ACTIVATION",
+    "condition": {"math":["timez", "<", "2"]},
+    "effect": [
+         {"math":["timez", "=", "2"]},
+         {"math":["timezN", "=", "0"]}
+	],
+	"false_effect":[
+	{ "run_eocs": "requesti_light_1" }
+	]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "requesti_light_1",
+    "eoc_type": "ACTIVATION",
+    "condition": {"math":["timez", ">=", "10"]},
+    "false_effect":[
+	{"math":["timez", "+=", "1"]},
+	{"math":["timezN", "=", "0"]}
+	]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_Luciferium",
+    "eoc_type": "ACTIVATION",
+    "condition": {"not":{ "u_has_trait": "Luciferium" }},
+    "effect": [
+         { "u_add_trait": "Luciferium" },
+         { "math": [ "timezN", "=", "0"]},
+         {"math":["timez", "=", "7"]}
+	],
+	"false_effect":[
+	{ "run_eocs": "requesti" }
+	]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "requesti",
+    "eoc_type": "ACTIVATION",
+    "condition": {"math":["timez", "<", "7"]},
+    "effect": [
+         {"math":["timez", "=", "7"]},
+         {"math":["timezN", "=", "0"]}
+	],
+	"false_effect":[
+	{ "run_eocs": "requesti_light_1" }
+	]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_Luciferium_hight",
+    "eoc_type": "ACTIVATION",
+    "condition": {"not":{ "u_has_trait": "Luciferium" }},
+    "effect": [
+         { "u_add_trait": "Luciferium" },
+         { "math": [ "timezN", "=", "0"]},
+         {"math":["timez", "=", "10"]}
+	],
+	"false_effect":[
+	{ "run_eocs": "requesti_hight" }
+	]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "requesti_hight",
+    "eoc_type": "ACTIVATION",
+    "condition": {"math":["timez", "<", "10"]},
+    "effect": [
+         {"math":["timez", "=", "10"]},
+         {"math":["timezN", "=", "0"]}
+	]
+  },
+  {
+  "type": "mutation",
+  "id": "Luciferium",                        
+  "name": "Devil's Bargain",                        
+  "points": -10,                                
+  "mixed_effect": true,                      
+  "description": "Your present life depends on Luciferius, but not on yourself.\n+ 2 STR.\n+ 2 INT.\n+ 2 DEX.\n+ 2 PER.\n+ 15 Speed.\n- 0.1 MOVE_COST.\n+ faster regen HP.\n+ faster regen stamina.",    
+  "valid": false,
+  "purifiable": false,
+  "enchantments": [
+      {
+        "values": [
+          { "value": "REGEN_HP", "multiply": 0.5 },
+          { "value": "REGEN_HP_AWAKE", "multiply": 0.133 },
+          { "value": "METABOLISM", "multiply": -0.333 },
+          { "value": "THIRST", "multiply": -0.5 },
+          { "value": "STAMINA_REGEN_MOD", "add": 0.1 },
+          { "value": "STRENGTH", "add": 2 },
+          { "value": "DEXTERITY", "add": 2 },
+          { "value": "INTELLIGENCE", "add": 2 },
+          { "value": "PERCEPTION", "add": 2 },
+          { "value": "SPEED", "multiply": 0.15 },
+          { "value": "MOVE_COST", "multiply": -0.1 }
+        ]
+      }
+    ]
+},
+{
+    "type": "item_group",
+    "id": "chem_lab",
+    "copy-from": "chem_lab",
+    "extend": {
+      "items": [
+        [ "Luciferium_light", 1 ],
+        [ "Luciferium", 1 ],
+        [ "Luciferium_hight", 1 ]
+      ]
+    }
+  }
+]
