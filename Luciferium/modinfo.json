@@ -2,10 +2,148 @@
   {
     "type": "MOD_INFO",
     "id": "KS_Luciferium",
-    "name": "Luciferium",
+    "name": "<color_red>Luciferium</color>",
     "authors": [ "Kenshut" ],
-    "description": "Add  Luciferium from rimworld",
-    "category": "content",
+    "description": "Add  <color_red>Luciferium</color> from rimworld",
+    "category": "misc_additions",
+	"version": "2", 
     "dependencies": [ "dda" ]
+  },
+  {
+    "type": "scenario",
+    "copy-from": "evacuee",
+    "id": "Luciferium_dependent",
+    "name": "Challenge - Luciferium Dependent",
+    "points": -10,
+    "description": "Your present life depends on Luciferius, but not on yourself.",
+    "forced_traits": [ "Luciferium" ],
+    "flags": [ "CHALLENGE", "LONE_START" ],
+    "eoc": [ "requesti_hight" ],
+	"missions": [ "MISSION_find_luci" ],
+    "requirement": "achievement_eat_luci"
+  },
+  {
+    "id": "score_avatar_consumes_luci",
+    "type": "score",
+    "statistic": "num_avatar_consumes_luci"
+  },
+  {
+    "id": "avatar_consumes_luci",
+    "type": "event_transformation",
+    "event_transformation": "avatar_consumes_item_flag",
+    "value_constraints": { "flag": { "equals": [ "flag_id", "luci_flag" ] } },
+    "drop_fields": [ "flag" ]
+  },
+  {
+    "id": "num_avatar_consumes_luci",
+    "type": "event_statistic",
+    "stat_type": "count",
+    "event_transformation": "avatar_consumes_luci",
+    "description": { "str": "pill Luciferium consumed/destroyed", "str_pl": "pills Luciferium consumed/destroyed" }
+  },
+  {
+    "id": "achievement_eat_luci",
+    "type": "achievement",
+    "name": "Power in exchange for freedom?",
+    "requirements": [
+      {
+        "event_statistic": "num_avatar_consumes_luci",
+        "is": ">=",
+        "target": 1,
+        "visible": "when_achievement_completed",
+        "description": "Decide fate"
+      }
+    ]
+  },
+  {
+    "type": "end_screen",
+    "id": "Luciferium_win",
+    "priority": 190,
+    "picture_id": "ascii_Luciferium_win",
+    "condition": { "and": [ { "not": "u_is_alive" }, { "u_has_trait": "Luciferium" } ] },
+    "added_info": [
+      [ [ 10, 10 ], "You <color_red>DEATH</color>" ],
+      [ [ 8, 13 ], "<u_name>..." ],
+      [ [ 4, 15 ], "<u_name>, How do you feel about this?" ],
+      [ [ 15, 17 ], "Not your problem anymore." ],
+      [ [ 9, 18 ], "Your <color_red>SOUL</color> is mine." ]
+    ]
+  },
+  {
+    "type": "end_screen",
+    "id": "portal_storm_lose",
+    "priority": 210,
+    "picture_id": "ascii_Luciferium_win",
+    "condition": { "and": [ { "not": "u_is_alive" }, { "u_has_effect": "a_winner_is_u" }, { "u_has_trait": "Luciferium" } ] },
+    "added_info": [
+      [ [ 6, 10 ], "You <color_red>won</color>" ],
+      [ [ 8, 12 ], "<u_name>..." ],
+      [ [ 15, 13 ], "You just escape." ],
+      [ [ 9, 15 ], "But <color_red>I will find you</color>." ]
+    ]
+  },
+  {
+    "id": "MISSION_find_luci",
+    "type": "mission_definition",
+    "name": { "str": "<color_red>YOU NEED NEW DOSE</color>" },
+    "description": "You realy need a new dose. Maybe you can find <color_red>luciferium</color> in labs?",
+    "goal": "MGOAL_CONDITION",
+    "difficulty": 2,
+	 "goal_condition": {
+      "or": [
+            { "u_has_item": "Luciferium" },
+			{ "u_has_item": "Luciferium_hight" },
+			{ "u_has_item": "Luciferium_light" }
+          ]
+    },
+    "origins": [ "ORIGIN_GAME_START" ],
+    "value": 0,
+    "end": {
+      "effect": [
+        { "u_add_morale": "morale_feeling_good", "bonus": 40, "max_bonus": 50, "duration": "7 days", "decay_start": "5 days" }
+      ]
+    }
+  },
+  {
+    "type": "ascii_art",
+    "id": "ascii_Luciferium_win",
+    "picture": [
+      "<color_red>`._  `-._        __.-----.__        _,-' </color>",
+      "   <color_red>`._   `#==='''           '''===#'   _,</color>",
+      "      <color_red>`._/)  ._               _.  (|_ '</color>",
+      "       <color_red>)*'     **.__     __.**     '*( </color>",
+      "       <color_red>#  .==..__  ''   ''  __..==   # </color>",
+      "       <color_red>#   `'._(_).       .(_)_.''   #</color>",
+      "                                         ",
+      "                                         ",
+      "                                         ",
+      "                                         ",
+      "                                         ",
+      "                                         ",
+      "                                         ",
+      "                                         ",
+      "                                         ",
+      "                                         ",
+      "                                         ",
+      "                                         ",
+      "                                         "
+    ]
   }
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
 ]
