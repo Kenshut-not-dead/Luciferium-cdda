@@ -258,7 +258,7 @@
     "effect": [
          { "u_add_trait": "Luciferium" },
          { "math": [ "timezN", "=", "0"]},
-         {"math":["timez", "=", "4"]}
+         {"math":["timez", "=", "2"]}
 	],
 	"false_effect":[
 	{ "run_eocs": "requesti" }
@@ -268,9 +268,9 @@
     "type": "effect_on_condition",
     "id": "requesti_light",
     "eoc_type": "ACTIVATION",
-    "condition": {"math":["timez", "<", "2"]},
+    "condition": {"math":["timez", "<", "1"]},
     "effect": [
-         {"math":["timez", "=", "4"]},
+         {"math":["timez", "=", "3"]},
          {"math":["timezN", "=", "0"]}
 	],
 	"false_effect":[
@@ -323,9 +323,9 @@
     "type": "effect_on_condition",
     "id": "requesti",
     "eoc_type": "ACTIVATION",
-    "condition": {"math":["timez", "<", "5"]},
+    "condition": {"math":["timez", "<", "7"]},
     "effect": [
-         {"math":["timez", "=", "14"]},
+         {"math":["timez", "=", "7"]},
          {"math":["timezN", "=", "0"]}
 	],
 	"false_effect":[
@@ -358,7 +358,7 @@
     "effect": [
          { "u_add_trait": "Luciferium" },
          { "math": [ "timezN", "=", "0"]},
-         {"math":["timez", "=", "20"]}
+         {"math":["timez", "=", "10"]}
 	],
 	"false_effect":[
 	{ "run_eocs": "requesti_hight" }
@@ -368,9 +368,9 @@
     "type": "effect_on_condition",
     "id": "requesti_hight",
     "eoc_type": "ACTIVATION",
-    "condition": {"math":["timez", "<", "18"]},
+    "condition": {"math":["timez", "<", "10"]},
     "effect": [
-         {"math":["timez", "=", "20"]},
+         {"math":["timez", "=", "10"]},
          {"math":["timezN", "=", "0"]}
 	]
   },
